@@ -1,0 +1,104 @@
+.classes-table {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.classes-table h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+}
+
+.classes-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.classes-table th, .classes-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.classes-table th {
+    background-color: #f2f2f2;
+}
+
+.classes-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.classes-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.classes-table button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.classes-table button:hover {
+    background-color: #0056b3;
+}
+
+.add-batch {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.add-batch input {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.add-batch button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.add-batch button:hover {
+    background-color: #218838;
+}
+
+.classes-table .edit {
+    background-color: #ffc107;
+    color: white;
+}
+
+.classes-table .edit:hover {
+    background-color: #e0a800;
+}
+
+.classes-table .delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.classes-table .delete:hover {
+    background-color: #c82333;
+}
