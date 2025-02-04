@@ -1,20 +1,20 @@
 "use client";
 import { useState } from "react";
-import './page.css';
 import { useRouter } from "next/navigation";
 const AddBatch = () => {
-  const [newClass, setNewClass] = useState({ name: "" });
+  const [newBatch, setNewBatch] = useState({ year: null });
   const router = useRouter();
 
-  const handleAddClass = async () => {
+  const handleAddBatch = async () => {
     try {
+      console.log('newBatch', newBatch);
       const response = await fetch('/api/batches',
         {
           method: 'POST',
           headers: {
-            'Content-type' : 'application/json'
+            'Content-type': 'application/json'
           },
-          body: JSON.stringify(newClass)
+          body: JSON.stringify(newBatch)
         }
       );
 
@@ -24,7 +24,7 @@ const AddBatch = () => {
 
       console.log('Class added');
       router.push('/batches');
-      setNewClass({ year: "" });
+      setNewBatch({ year: null });
     } catch (error) {
       console.error(error);
     }
@@ -32,25 +32,30 @@ const AddBatch = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewClass({ ...newClass, [name]: value });
+    setNewBatch({ ...newBatch, [name]: value });
   };
 
   return (
-    <div className="add-batch">
-      <div className="form-group">
-        <label htmlFor="year">Tahun Angkatan</label>
+    <div className="max-w-lg mx-auto mt-10 bg-white shadow-lg rounded-lg p-6">
+      <h2 className="text-2xl font-semibold text-gray-700 mb-4">Tambah Tahun Angkatan</h2>
+      <div className="mb-4">
+        <label htmlFor="className" className="block text-gray-600 font-medium mb-2">
+          Tahun Angkatan
+        </label>
         <input
           type="number"
-          id="year"
           name="year"
-          placeholder="Year"
-          value={newClass.year}
+          placeholder="Masukkan nama jurusan"
+          value={newBatch.year}
           onChange={handleInputChange}
-          className="form-control"
+          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-700"
         />
       </div>
-      <button onClick={handleAddClass} className="btn btn-primary">
-        Add Batch
+      <button
+        onClick={handleAddBatch}
+        className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200"
+      >
+        Submit
       </button>
     </div>
   );

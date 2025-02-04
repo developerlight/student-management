@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import './page.css';
 import { useRouter } from "next/navigation";
 const AddBatch = () => {
   const [newClass, setNewClass] = useState({ name: "" });
@@ -22,7 +21,6 @@ const AddBatch = () => {
         throw new Error('Network response was not ok');
       }
 
-      console.log('Class added');
       router.push('/classes');
       setNewClass({ name: "" });
     } catch (error) {
@@ -36,21 +34,26 @@ const AddBatch = () => {
   };
 
   return (
-    <div className="add-batch">
-      <div className="form-group">
-        <label htmlFor="name">Nama Kelas</label>
+    <div className="max-w-lg mx-auto mt-10 bg-white shadow-lg rounded-lg p-6">
+      <h2 className="text-2xl font-semibold text-gray-700 mb-4">Tambah Kelas</h2>
+      <div className="mb-4">
+        <label htmlFor="className" className="block text-gray-600 font-medium mb-2">
+          Nama Kelas
+        </label>
         <input
           type="text"
-          id="name"
           name="name"
-          placeholder="Name Class"
+          placeholder="Masukkan nama jurusan"
           value={newClass.name}
           onChange={handleInputChange}
-          className="form-control"
+          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-700"
         />
       </div>
-      <button onClick={handleAddClass} className="btn btn-primary">
-        Add Batch
+      <button
+        onClick={handleAddClass}
+        className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200"
+      >
+        Tambah Jurusan
       </button>
     </div>
   );

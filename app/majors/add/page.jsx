@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import './page.css';
 import { useRouter } from "next/navigation";
 const AddMajor = () => {
   const [newMajor, setNewMajor] = useState({ name: "" });
@@ -48,7 +47,7 @@ const AddMajor = () => {
           placeholder="Masukkan nama jurusan"
           value={newMajor.name}
           onChange={handleInputChange}
-          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-700"
         />
       </div>
       <button
