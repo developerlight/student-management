@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import './majorTable.css';
 import Link from 'next/link';
 
 const MajorTable = () => {
