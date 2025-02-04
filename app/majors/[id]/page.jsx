@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
-import './page.css';
 
 const EditMajor = () => {
   const [major, setMajor] = useState({ name: "" });

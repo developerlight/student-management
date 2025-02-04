@@ -57,7 +57,7 @@ const MajorTable = () => {
             <input
                 type="text"
                 placeholder="Cari Jurusan..."
-                className="border border-gray-300 rounded-md px-4 py-2 mb-4 w-full text-black"
+                className="border border-gray-300 rounded-md px-4 py-2 mb-4 w-full text-gray-700"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -70,12 +70,12 @@ const MajorTable = () => {
             </Link>
 
             {/* Limit */}
-            <div className="mb-4 text-black ">
-                <label htmlFor="limit" className="mr-2 text-black">Items per page:</label>
+            <div className="mb-4 text-gray-700 ">
+                <label htmlFor="limit" className="mr-2 text-gray-700">Items per page:</label>
                 <select id="limit" value={limit} onChange={handleLimitChange} className="px-2 py-1 border rounded-md">
-                    <option value={5} className='text-black'>5</option>
-                    <option value={10} className='text-black'>10</option>
-                    <option value={20} className='text-black'>20</option>
+                    <option value={5} className='text-gray-700'>5</option>
+                    <option value={10} className='text-gray-700'>10</option>
+                    <option value={20} className='text-gray-700'>20</option>
                 </select>
             </div>
 
@@ -84,20 +84,20 @@ const MajorTable = () => {
                 <table className="w-full border-collapse border border-gray-200">
                     <thead>
                         <tr className="bg-gray-100">
-                            <th className="border border-gray-300 px-4 py-2 text-black">#</th>
-                            <th className="border border-gray-300 px-4 py-2 text-black">Nama Jurusan</th>
-                            <th className="border border-gray-300 px-4 py-2 text-black">Aksi</th>
+                            <th className="border border-gray-300 px-4 py-2 text-gray-700">#</th>
+                            <th className="border border-gray-300 px-4 py-2 text-gray-700">Nama Jurusan</th>
+                            <th className="border border-gray-300 px-4 py-2 text-gray-700">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         {filteredMajors.length > 0 ? (
                             filteredMajors.map((major, index) => (
                                 <tr key={major.id} className="text-center">
-                                    <td className="border border-gray-300 px-4 py-2 text-black">
+                                    <td className="border border-gray-300 px-4 py-2 text-gray-700">
                                     {(currentPage - 1) * limit + index + 1}
                                     </td>
-                                    <td className="border border-gray-300 px-4 py-2 text-black">{major.name}</td>
-                                    <td className="border border-gray-300 px-4 py-2 text-black">
+                                    <td className="border border-gray-300 px-4 py-2 text-gray-700">{major.name}</td>
+                                    <td className="border border-gray-300 px-4 py-2 text-gray-700">
                                         <Link href={`/majors/${major.id}`}>
                                             <button className="px-3 py-1 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 mx-1">
                                                 Edit
@@ -134,7 +134,7 @@ const MajorTable = () => {
                 >
                     Prev
                 </button>
-                <span className="px-4 py-2 border rounded-md">{currentPage} / {totalPages}</span>
+                <span className="px-4 py-2 border rounded-md text-gray-600">{currentPage} / {totalPages}</span>
                 <button
                     onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                     disabled={currentPage === totalPages}
