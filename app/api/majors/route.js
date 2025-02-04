@@ -10,7 +10,7 @@ export async function GET(req) {
     const {data, error, count } = await supabase
         .from('majors')
         .select('*', {count: 'exact'})
-        .order('id', {ascending: true})
+        .order('name', {ascending: true})
         .range(start, end);
 
     if (error) return Response.json({error: error.message}, {status: 500});
