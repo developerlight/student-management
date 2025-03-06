@@ -104,6 +104,11 @@ const StudentTable = () => {
                                     <td className="border border-gray-300 px-4 py-2 text-gray-700">{student.classes.name}</td>
                                     <td className="border border-gray-300 px-4 py-2 text-gray-700">{student.batches.year}</td>
                                     <td className="border border-gray-300 px-4 py-2 text-gray-700">
+                                        <Link href={`/students/show/${student.id}`}>
+                                            <button className="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 mx-1">
+                                                View
+                                            </button>
+                                        </Link>
                                         <Link href={`/students/${student.id}`}>
                                             <button className="px-3 py-1 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 mx-1">
                                                 Edit

@@ -2,7 +2,15 @@ import { supabase } from "@/app/lib/supabase";
 
 export async function GET(request, {params}) {
     const {id} = params;
-    const { data, error } = await supabase.from('students').select('*').eq('id', id).single();
+    const { data, error } = await supabase.from('students').select(`
+        id,
+        nisn,
+        full_name,
+        birth_date,
+        classes (name),
+        batches (year),
+        majors (name)
+        `).eq('id', id).single();
 
     if (error) {
         return Response.json({ error: error.message }, { status: 500 });
