@@ -7,9 +7,9 @@ export async function GET(request, {params}) {
         nisn,
         full_name,
         birth_date,
-        classes (name),
-        batches (year),
-        majors (name)
+        classes (id, name),
+        batches (id, year),
+        majors (id, name)
         `).eq('id', id).single();
 
     if (error) {
