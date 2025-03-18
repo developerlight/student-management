@@ -1,0 +1,19 @@
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+const CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+const PRESET_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME;
+const API_KEY = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY;
+const API_SECRET = process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET;
+
+export const cloudinaryEnv = {
+    CLOUD_NAME,
+    PRESET_NAME,
+    API_KEY,
+    API_SECRET
+}
+
+export const supabaseEnv = {
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+}

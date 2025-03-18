@@ -1,3 +1,4 @@
+import { getImagesCloudinary } from "@/app/lib/cloudinary";
 import { supabase } from "@/app/lib/supabase";
 
 export async function GET(request, {params}) {

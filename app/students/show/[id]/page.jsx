@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import CloudinaryUploader from '@/app/components/cloudinaryUploader';
+
 
 const StudentTable = () => {
     const [student, setStudent] = useState({
@@ -22,7 +24,6 @@ const StudentTable = () => {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                console.log(data);
                 setStudent(data);
             } catch (error) {
                 console.error('Error fetching student:', error);
@@ -32,13 +33,18 @@ const StudentTable = () => {
         fetchStudent();
     }, []);
 
-
     return (
         <div className="p-6 bg-white shadow-lg rounded-lg">
             <h2 className="text-2xl font-bold mb-4 text-gray-800">Siswa</h2>
 
             {/* Tabel */}
             <div className="overflow-x-auto">
+                <div className="profile">
+                    <h1 className="text-5xl text-center mt-4">
+                        Profile Siswa
+                    </h1>
+                    <CloudinaryUploader />
+                </div>
                 <table className="w-full border-collapse border border-gray-200">
                     <tbody>
                         <tr className="bg-gray-100">
