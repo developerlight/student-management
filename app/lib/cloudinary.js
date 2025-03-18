@@ -1,5 +1,3 @@
-const { m } = require('framer-motion');
-
 const cloudinary = require('cloudinary').v2;
 
 const {CLOUD_NAME, PRESET_NAME, API_KEY, API_SECRET} = require('../env/index.js').cloudinaryEnv;
