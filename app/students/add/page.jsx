@@ -16,7 +16,8 @@ const AddMajor = () => {
   const [classes, setClasses] = useState([{id:'', name:''}]);
   const [batches, setBatches] = useState([{id:'', year:null}]);
   const [image, setImage] = useState({public_id: '', signature: '', url: ''});
-  const [getId, setGetId] = useState(null);
+  const [boolId, setBoolId] = useState(null);
+  const [getId, setGetId] = useState({ id: '' });
 
   const router = useRouter();
   useEffect(() => {
@@ -71,8 +72,6 @@ const AddMajor = () => {
   //   }, [id]);
   // };
 
-  useEffect(() => {
-    if (!getId?.id) return; // Mencegah eksekusi jika signature tidak ada
 
     const fetchImage = async () => {
       try {
@@ -85,9 +84,6 @@ const AddMajor = () => {
         console.error("Error fetching image:", error);
       }
     };
-
-    fetchImage();
-  }, [getId?.id]);
 
   const handleAddStudent = async () => {
     try {
@@ -103,8 +99,12 @@ const AddMajor = () => {
       if (!resImg.ok) {
         throw new Error('Network response was not ok');
       }
-      const imgData = await resImg.json();
-      setGetId(true);
+      const idImg = await fetch('/api/cloudinary/' + image.public_id);
+      // setBoolId(true);
+      // if (boolId) {
+      //   await fetchImage();
+      //   setGetId(false);
+      // }
       const updatedStudent = { ...newStudent, image_id: imgData?.id };
       console.log('postStudent', updatedStudent);
       // const response = await fetch('/api/students',
@@ -151,6 +151,7 @@ const AddMajor = () => {
   
   console.log('image:', image);
   console.log('newStudent:', newStudent);
+  console.log('getId:', getId);
 
   return (
     <div className="max-w-lg mx-auto mt-10 bg-white shadow-lg rounded-lg p-6">
