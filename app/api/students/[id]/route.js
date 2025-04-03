@@ -10,7 +10,8 @@ export async function GET(request, {params}) {
         birth_date,
         classes (id, name),
         batches (id, year),
-        majors (id, name)
+        majors (id, name),
+        images (id, url, public_id)
         `).eq('id', id).single();
 
     if (error) {

@@ -56,30 +56,13 @@ const AddMajor = () => {
     fetchBatches();
   }, []);
 
-  // const getIdImage = (id) => {
-  //   useEffect(() => {
-  //     async function fetchImage() {
-  //       try {
-  //         const response = await fetch('/api/cloudinary/' + id);
-  //         const data = await response.json();
-  //         console.log('idImg', data);
-  //         // setImage(data.image || []);
-  //       } catch (error) {
-  //         console.error('Error fetching image:', error);
-  //       }
-  //     }
-  //     fetchImage();
-  //   }, [id]);
-  // };
-
-
     const fetchImage = async () => {
       try {
-        const response = await fetch(`/api/cloudinary/${getId.id}`);
+        const response = await fetch(`/api/cloudinary/${image.signature}`);
         const data = await response.json();
-        console.log("idImg", data);
+        // console.log("idImg", data);
         setGetId((prev) => ({ ...prev, ...data }));
-        console.log('getId:', getId);
+        // console.log('getId:', getId);
       } catch (error) {
         console.error("Error fetching image:", error);
       }
@@ -99,38 +82,35 @@ const AddMajor = () => {
       if (!resImg.ok) {
         throw new Error('Network response was not ok');
       }
-      const idImg = await fetch('/api/cloudinary/' + image.public_id);
-      // setBoolId(true);
-      // if (boolId) {
-      //   await fetchImage();
-      //   setGetId(false);
-      // }
+      const idImg = await fetch('/api/cloudinary/' + image.signature);
+      const imgData = await idImg.json();
+      // console.log('imgData', imgData);
       const updatedStudent = { ...newStudent, image_id: imgData?.id };
-      console.log('postStudent', updatedStudent);
-      // const response = await fetch('/api/students',
-      //   {
-      //     method: 'POST',
-      //     headers: {
-      //       'Content-type': 'application/json'
-      //     },
-      //     body: JSON.stringify(updatedStudent)
-      //   }
-      // );
+      // console.log('postStudent', updatedStudent);
+      const response = await fetch('/api/students',
+        {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(updatedStudent)
+        }
+      );
 
-      // if (!response.ok) {
-      //   throw new Error('Network response was not ok');
-      // }
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
 
-      // router.push('/students');
-      // setNewStudent({
-      //   nisn: "",
-      //   full_name: "",
-      //   birth_date: "",
-      //   major_id: "",
-      //   class_id: "",
-      //   batch_id: "",
-      //   image_id: ""
-      // });
+      router.push('/students');
+      setNewStudent({
+        nisn: "",
+        full_name: "",
+        birth_date: "",
+        major_id: "",
+        class_id: "",
+        batch_id: "",
+        image_id: ""
+      });
     } catch (error) {
       console.error(error);
     }
@@ -142,16 +122,16 @@ const AddMajor = () => {
       signature: imageData.info.signature,
       url: imageData.info.secure_url
     })
-    // setNewStudent({ ...newStudent, image_id: imageData.publicId });
   }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewStudent({ ...newStudent, [name]: value });
   };
   
-  console.log('image:', image);
-  console.log('newStudent:', newStudent);
-  console.log('getId:', getId);
+  // console.log('image:', image);
+  // console.log('newStudent:', newStudent);
+  // console.log('getId:', getId);
 
   return (
     <div className="max-w-lg mx-auto mt-10 bg-white shadow-lg rounded-lg p-6">

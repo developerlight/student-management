@@ -50,7 +50,7 @@ const StudentTable = () => {
         : students;
 
     return (
-        <div className="p-6 bg-white shadow-lg rounded-lg">
+        <div className="w-full min-h-screen justify-center flex flex-col items-start mb-5 p-6 bg-white shadow-lg rounded-lg">
             <h2 className="text-2xl font-bold mb-4 text-gray-800">Siswa</h2>
 
             {/* Input Pencarian */}
@@ -80,9 +80,9 @@ const StudentTable = () => {
             </div>
 
             {/* Tabel */}
-            <div className="overflow-x-auto">
-                <table className="w-full border-collapse border border-gray-200">
-                    <thead>
+                        <div className="overflow-x-auto">
+                            <table className="w-full border-collapse border border-gray-200">
+                                <thead>
                         <tr className="bg-gray-100">
                             <th className="border border-gray-300 px-4 py-2 text-gray-700">#</th>
                             <th className="border border-gray-300 px-4 py-2 text-gray-700">NISN</th>
