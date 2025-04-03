@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { redirect, useParams } from 'next/navigation';
 import CloudinaryUploader from '@/app/components/cloudinaryUploader';
+import { CldImage } from 'next-cloudinary';
+import { useRouter } from "next/navigation";
 
 
 const StudentTable = () => {
@@ -13,9 +15,17 @@ const StudentTable = () => {
         birth_date: "",
         majors: { name: "" },
         classes: { name: "" },
-        batches: { year: "" }
+        batches: { year: "" },
+        images: { id:"", url: "", public_id: "" }
     });
     const { id } = useParams();
+    const [image, setImage] = useState({
+        public_id: "",
+        signature: "",
+        url: ""
+    });
+    const router = useRouter();
+
     useEffect(() => {
         const fetchStudent = async () => {
             try {
@@ -24,6 +34,7 @@ const StudentTable = () => {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
+                console.log('student data:', data);
                 setStudent(data);
             } catch (error) {
                 console.error('Error fetching student:', error);
@@ -33,6 +44,34 @@ const StudentTable = () => {
         fetchStudent();
     }, []);
 
+    const handleUploadComplete = async (imageData) => {
+        // setImage({
+        //     public_id: imageData.info.public_id,
+        //     signature: imageData.info.signature,
+        //     url: imageData.info.secure_url
+        // });
+        console.log('image:', image);
+        const updateImage = await fetch(`/api/cloudinary/${student.images.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                delete : student.images.public_id,
+                public_id: imageData.info.public_id,
+                signature: imageData.info.signature,
+                url: imageData.info.secure_url
+            }),
+        });
+        // belum membuat animasi loading ketika upload image
+        
+        if (!updateImage.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        // router.refresh();
+        window.location.reload();
+    };
     return (
         <div className="p-6 bg-white shadow-lg rounded-lg">
             <h2 className="text-2xl font-bold mb-4 text-gray-800">Siswa</h2>
@@ -43,8 +82,23 @@ const StudentTable = () => {
                     <h1 className="text-5xl text-center mt-4">
                         Profile Siswa
                     </h1>
-                    <CloudinaryUploader />
                 </div>
+                {student.images.url && (
+                    <div className="relative w-80 h-80 mx-auto mb-4">
+                        <CldImage
+                            src={student.images.url}
+                            alt="Student Image"
+                            width={300}
+                            height={300}
+                            className="rounded-full w-full h-full object-cover"
+                            priority
+                        />
+                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-gray-300 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition"
+                        >
+                            <CloudinaryUploader onUploadComplete={handleUploadComplete} />
+                        </div>
+                    </div>
+                )};
                 <table className="w-full border-collapse border border-gray-200">
                     <tbody>
                         <tr className="bg-gray-100">

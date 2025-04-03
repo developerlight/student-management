@@ -1,11 +1,12 @@
+import AdminLayout from "../components/adminLayout";
 import MajorTable from "../components/majorTable";
 
 
 const Batches = () => {
     return (  
-        <div className="">
+        <AdminLayout>
             <MajorTable />
-        </div>
+        </AdminLayout>
     );
 }
  

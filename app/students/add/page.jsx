@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import CloudinaryUploader from "@/app/components/cloudinaryUploader";
 const AddMajor = () => {
   const [newStudent, setNewStudent] = useState({ 
     nisn: "",
@@ -9,10 +10,14 @@ const AddMajor = () => {
     major_id: "",
     class_id: "",
     batch_id: "",
+    image_id: ""
   });
   const [majors, setMajors] = useState([{id:'', name:''}]);
   const [classes, setClasses] = useState([{id:'', name:''}]);
   const [batches, setBatches] = useState([{id:'', year:null}]);
+  const [image, setImage] = useState({public_id: '', signature: '', url: ''});
+  const [boolId, setBoolId] = useState(null);
+  const [getId, setGetId] = useState({ id: '' });
 
   const router = useRouter();
   useEffect(() => {
@@ -51,15 +56,44 @@ const AddMajor = () => {
     fetchBatches();
   }, []);
 
+    const fetchImage = async () => {
+      try {
+        const response = await fetch(`/api/cloudinary/${image.signature}`);
+        const data = await response.json();
+        // console.log("idImg", data);
+        setGetId((prev) => ({ ...prev, ...data }));
+        // console.log('getId:', getId);
+      } catch (error) {
+        console.error("Error fetching image:", error);
+      }
+    };
+
   const handleAddStudent = async () => {
     try {
+      const resImg = await fetch('/api/cloudinary/',
+        {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(image)
+        }
+      );
+      if (!resImg.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const idImg = await fetch('/api/cloudinary/' + image.signature);
+      const imgData = await idImg.json();
+      // console.log('imgData', imgData);
+      const updatedStudent = { ...newStudent, image_id: imgData?.id };
+      // console.log('postStudent', updatedStudent);
       const response = await fetch('/api/students',
         {
           method: 'POST',
           headers: {
             'Content-type': 'application/json'
           },
-          body: JSON.stringify(newStudent)
+          body: JSON.stringify(updatedStudent)
         }
       );
 
@@ -75,22 +109,36 @@ const AddMajor = () => {
         major_id: "",
         class_id: "",
         batch_id: "",
+        image_id: ""
       });
     } catch (error) {
       console.error(error);
     }
   };
+   
+  const handleUploadComplete = (imageData) => {
+    setImage({
+      public_id: imageData.info.public_id,
+      signature: imageData.info.signature,
+      url: imageData.info.secure_url
+    })
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewStudent({ ...newStudent, [name]: value });
   };
   
-  console.log(newStudent);
+  // console.log('image:', image);
+  // console.log('newStudent:', newStudent);
+  // console.log('getId:', getId);
 
   return (
     <div className="max-w-lg mx-auto mt-10 bg-white shadow-lg rounded-lg p-6">
       <h2 className="text-2xl font-semibold text-gray-700 mb-4">Tambah Data Siswa</h2>
+      <div className="mb-4">
+        <CloudinaryUploader onUploadComplete={handleUploadComplete} />
+      </div>
       <div className="mb-4">
         <label htmlFor="nisn" className="block text-gray-600 font-medium mb-2">
           NISN
