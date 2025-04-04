@@ -1,9 +1,13 @@
 "use client";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const AdminLayout = ({children}) => {
     const [open, setOpen] = useState(true);
+    const supabase = createClientComponentClient();
+    const router = useRouter();
     const Menus = [
         {   title: "Dashboard", 
             // icon: <HomeIcon className="w-6 h-6" />, 
@@ -37,9 +41,15 @@ const AdminLayout = ({children}) => {
             title: "Log Out",
             // icon: <ArrowLeftOnRectangleIcon className="w-6 h-6" />,
             
-            url: "/banner",
+            url: "/",
         },
     ];
+
+    const handleLogout = async () => {
+        await supabase.auth.signOut();
+        router.refresh();
+    }
+
     return (
         <div className="flex">
             <div
@@ -74,6 +84,7 @@ const AdminLayout = ({children}) => {
                             key={index}
                             className={`flex rounded-md p-2 cursor-pointer hover:bg-light hover:text-dark text-gray-300 text-sm items-center gap-x-4 ${Menu.gap ? "mt-9" : "mt-2"
                                 }`}
+                            onClick={Menu.title === "Log Out" ? handleLogout : null}
                         >
                             {/* Icon */}
                             {/* {Menu.icon} */}

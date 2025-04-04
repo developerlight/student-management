@@ -1,6 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import AdminLayout from "./components/adminLayout";
+import Footer from "./components/footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,12 +24,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AdminLayout>
           {children}
-        </AdminLayout>
-        <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-                <h1>ini footer</h1>
-          </footer>
+      <Footer />
       </body>
     </html>
   );

@@ -4,9 +4,9 @@ import MajorTable from "../components/majorTable";
 
 const Batches = () => {
     return (  
-        <AdminLayout>
+        <div className="">
             <MajorTable />
-        </AdminLayout>
+        </div>
     );
 }
  
